@@ -11,7 +11,7 @@
 <meta property="og:type" content="book">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --void:#060812;
@@ -20,6 +20,9 @@
     --fire:#e0451f;
     --fire-soft:#c0491f;
     --ember:#f0a35e;
+    --gold:#e8b54a;
+    --gold-lo:#b8822c;
+    --gold-hi:#f7e08a;
     --pale:#e8e4dd;
     --pale-dim:#b9b6b0;
     --dim:#7f859c;
@@ -39,41 +42,68 @@
   }
   ::selection{background:var(--fire);color:#fff}
 
-  /* ---- ambient starfield ---- */
-  .stars,.stars2{position:fixed;inset:0;z-index:0;pointer-events:none}
+  /* ---- deep-space nebula: color at the edges, calm dark in the center ---- */
+  /* Fire nebula top-left, light nebula bottom-right — the two spirits, felt as sky. */
+  .nebula{position:fixed;inset:-10%;z-index:0;pointer-events:none;
+    background:
+      /* fire cloud, upper-left */
+      radial-gradient(45vw 40vh at 8% 4%, rgba(224,69,31,.22), transparent 62%),
+      radial-gradient(28vw 26vh at 20% 14%, rgba(240,120,50,.14), transparent 60%),
+      radial-gradient(20vw 22vh at 2% 22%, rgba(150,30,20,.16), transparent 60%),
+      /* light cloud, lower-right */
+      radial-gradient(46vw 42vh at 92% 98%, rgba(150,170,215,.16), transparent 62%),
+      radial-gradient(30vw 28vh at 82% 88%, rgba(200,210,230,.10), transparent 60%),
+      radial-gradient(22vw 24vh at 98% 76%, rgba(120,140,190,.12), transparent 60%),
+      /* faint ember bridge through the middle depths */
+      radial-gradient(60vw 30vh at 50% 46%, rgba(240,163,94,.05), transparent 72%),
+      /* deep base wash keeps the whole field cohesive */
+      radial-gradient(120vw 120vh at 50% 30%, rgba(12,10,26,.5), transparent 80%);
+    animation:nebuladrift 60s ease-in-out infinite alternate;
+    will-change:transform;
+  }
+  @keyframes nebuladrift{
+    from{transform:translate3d(0,0,0) scale(1)}
+    to{transform:translate3d(-1.5%,1.5%,0) scale(1.04)}
+  }
+
+  /* three parallax star layers for depth */
+  .stars,.stars2,.stars3{position:fixed;inset:-20%;z-index:0;pointer-events:none;background-repeat:no-repeat}
   .stars{
     background-image:
-      radial-gradient(1px 1px at 20% 30%, rgba(232,228,221,.7), transparent),
-      radial-gradient(1px 1px at 60% 70%, rgba(232,228,221,.5), transparent),
-      radial-gradient(1px 1px at 80% 20%, rgba(232,228,221,.6), transparent),
-      radial-gradient(1px 1px at 35% 85%, rgba(240,163,94,.5), transparent),
-      radial-gradient(1px 1px at 90% 60%, rgba(232,228,221,.4), transparent),
-      radial-gradient(1px 1px at 10% 60%, rgba(232,228,221,.5), transparent),
-      radial-gradient(1px 1px at 48% 15%, rgba(240,163,94,.4), transparent);
-    background-repeat:no-repeat;
-    animation:drift 140s linear infinite;
-    opacity:.9;
+      radial-gradient(1.2px 1.2px at 20% 30%, rgba(232,228,221,.9), transparent),
+      radial-gradient(1.4px 1.4px at 60% 70%, rgba(232,228,221,.7), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(240,163,94,.8), transparent),
+      radial-gradient(1.3px 1.3px at 35% 85%, rgba(232,228,221,.6), transparent),
+      radial-gradient(1px 1px at 90% 60%, rgba(200,210,230,.6), transparent),
+      radial-gradient(1.5px 1.5px at 10% 60%, rgba(232,228,221,.8), transparent),
+      radial-gradient(1px 1px at 48% 15%, rgba(240,163,94,.6), transparent),
+      radial-gradient(1.2px 1.2px at 72% 42%, rgba(232,228,221,.5), transparent);
+    animation:drift 160s linear infinite, twinkle 6s ease-in-out infinite;
   }
   .stars2{
     background-image:
-      radial-gradient(1px 1px at 15% 50%, rgba(232,228,221,.4), transparent),
-      radial-gradient(1px 1px at 70% 40%, rgba(224,69,31,.4), transparent),
-      radial-gradient(1px 1px at 45% 65%, rgba(232,228,221,.35), transparent),
-      radial-gradient(1px 1px at 85% 80%, rgba(232,228,221,.3), transparent),
-      radial-gradient(1px 1px at 25% 10%, rgba(232,228,221,.4), transparent);
-    background-repeat:no-repeat;
-    animation:drift2 200s linear infinite;
+      radial-gradient(1px 1px at 15% 50%, rgba(232,228,221,.5), transparent),
+      radial-gradient(1.2px 1.2px at 70% 40%, rgba(224,69,31,.6), transparent),
+      radial-gradient(1px 1px at 45% 65%, rgba(232,228,221,.45), transparent),
+      radial-gradient(1px 1px at 85% 80%, rgba(232,228,221,.4), transparent),
+      radial-gradient(1px 1px at 25% 10%, rgba(232,228,221,.5), transparent),
+      radial-gradient(1px 1px at 55% 92%, rgba(200,210,230,.5), transparent);
+    animation:drift2 220s linear infinite, twinkle 9s ease-in-out infinite 1s;
+    opacity:.8;
   }
-  @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-40px)}}
-  @keyframes drift2{from{transform:translateY(0)}to{transform:translateY(30px)}}
-
-  /* deep radial glows: fire top-left, light bottom-right — the two spirits */
-  .aura{position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:
-      radial-gradient(60vw 60vh at 12% 8%, rgba(224,69,31,.16), transparent 60%),
-      radial-gradient(55vw 55vh at 88% 96%, rgba(200,205,225,.10), transparent 60%),
-      radial-gradient(40vw 40vh at 60% 50%, rgba(240,163,94,.06), transparent 70%);
+  .stars3{
+    background-image:
+      radial-gradient(.8px .8px at 33% 25%, rgba(232,228,221,.35), transparent),
+      radial-gradient(.8px .8px at 66% 55%, rgba(232,228,221,.3), transparent),
+      radial-gradient(.8px .8px at 12% 78%, rgba(232,228,221,.3), transparent),
+      radial-gradient(.8px .8px at 88% 33%, rgba(232,228,221,.28), transparent),
+      radial-gradient(.8px .8px at 50% 5%, rgba(232,228,221,.3), transparent);
+    animation:drift 280s linear infinite;
+    opacity:.6;
   }
+  @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-60px)}}
+  @keyframes drift2{from{transform:translateY(0)}to{transform:translateY(45px)}}
+  @keyframes twinkle{0%,100%{opacity:.9}50%{opacity:.5}}
 
   main{position:relative;z-index:1}
   section{padding:clamp(4.5rem,11vh,9rem) 1.5rem;position:relative}
@@ -84,36 +114,62 @@
   .seam{width:1px;height:clamp(3rem,8vh,6rem);margin:0 auto;background:var(--seam);opacity:.7}
 
   /* ---- type ---- */
+  /* gold-foil gradient fill, echoing the cover title */
+  .gold{
+    background:linear-gradient(175deg, var(--gold-hi) 8%, var(--gold) 38%, var(--gold-lo) 62%, var(--gold) 88%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.5));
+  }
   .eyebrow{
-    font-family:'Cormorant',serif;
+    font-family:'Cinzel',serif;
     font-weight:500;
     text-transform:uppercase;
-    letter-spacing:.42em;
-    font-size:.72rem;
+    letter-spacing:.34em;
+    font-size:.66rem;
     color:var(--ember);
-    margin-left:.42em;
+    margin-left:.34em;
   }
+  /* diamond flourishes around eyebrows */
+  .eyebrow::before,.eyebrow::after{content:"\2666";color:var(--gold);opacity:.6;font-size:.7em;margin:0 .8em;vertical-align:.1em}
   h1{
-    font-family:'Cormorant',serif;
-    font-weight:400;
-    font-size:clamp(3.2rem,12vw,7rem);
-    line-height:.94;
-    letter-spacing:.01em;
+    font-family:'Cinzel',serif;
+    font-weight:600;
+    text-transform:uppercase;
+    font-size:clamp(2.3rem,8vw,4.6rem);
+    line-height:1.08;
+    letter-spacing:.04em;
     color:var(--pale);
   }
+  /* cover-matching stacked title */
+  .cover-title{display:flex;flex-direction:column;align-items:center;gap:.05em;line-height:.9;letter-spacing:.06em}
+  .cover-title .t-the{font-size:.42em;letter-spacing:.32em;margin-right:-.32em}
+  .cover-title .t-god{font-size:1.28em}
+  .cover-title .t-me{font-size:1.28em}
+  .cover-title .t-of{display:flex;align-items:center;justify-content:center;gap:.9em;font-size:.5em;letter-spacing:.3em;margin:.14em 0}
+  .cover-title .t-of .gold{margin-right:-.3em}
+  /* one hairline + one diamond exactly at the inner tip (next to OF), mirrored on each side */
+  .cover-title .flr{position:relative;display:inline-block;width:2.6em;height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold) 92%);}
+  .cover-title .flr::after{content:"\2666";position:absolute;top:50%;right:0;
+    transform:translate(85%,-50%);font-size:8px;line-height:1;color:var(--gold)}
+  /* right side is a mirror of the left */
+  .cover-title .t-of .flr:last-of-type{transform:scaleX(-1)}
   h2{
-    font-family:'Cormorant',serif;
+    font-family:'Cinzel',serif;
     font-weight:400;
-    font-size:clamp(2rem,5.5vw,3.2rem);
-    line-height:1.05;
-    letter-spacing:.01em;
+    text-transform:uppercase;
+    font-size:clamp(1.5rem,4vw,2.4rem);
+    line-height:1.2;
+    letter-spacing:.03em;
     color:var(--pale);
   }
   h3{
-    font-family:'Cormorant',serif;
+    font-family:'Cinzel',serif;
     font-weight:500;
-    font-size:1.5rem;
-    letter-spacing:.02em;
+    text-transform:uppercase;
+    font-size:1.15rem;
+    letter-spacing:.04em;
     color:var(--ember);
   }
   .lede{
@@ -132,6 +188,42 @@
   /* ---- hero ---- */
   .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
     padding-top:clamp(3rem,8vh,6rem);padding-bottom:clamp(3rem,8vh,6rem);text-align:center}
+  /* 3D physical book: cover + spine edge + page block + shadow */
+  .book{
+    width:clamp(160px,32vw,240px);
+    margin:0 auto clamp(2rem,4vh,2.8rem);
+    perspective:1600px;
+    animation:rise 1.4s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .book-inner{
+    position:relative;
+    transform:rotateY(-14deg) rotateX(2deg);
+    transform-style:preserve-3d;
+    transition:transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .book:hover .book-inner{transform:rotateY(-6deg) rotateX(1deg)}
+  .book-inner img{
+    display:block;width:100%;border-radius:2px 5px 5px 2px;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,.4),
+      0 14px 40px rgba(0,0,0,.55),
+      0 0 70px rgba(224,69,31,.18);
+    position:relative;z-index:2;
+  }
+  /* the spine — dark gradient strip on the left, rotated back */
+  .book-inner::before{
+    content:"";position:absolute;top:0;left:0;height:100%;width:26px;
+    background:linear-gradient(90deg,#05060c,#12101c 40%,#1c1826);
+    transform:translateX(-24px) rotateY(78deg);transform-origin:right center;
+    border-radius:3px 0 0 3px;z-index:1;
+  }
+  /* the page block — off-white edges on the right, gives thickness */
+  .book-inner::after{
+    content:"";position:absolute;top:1.5%;right:0;height:97%;width:14px;
+    background:repeating-linear-gradient(90deg,#d8d2c4,#d8d2c4 1px,#c3bcab 1px,#c3bcab 2px);
+    transform:translateX(12px) rotateY(-82deg);transform-origin:left center;
+    border-radius:0 2px 2px 0;z-index:1;
+  }
   .hero-cover{
     width:clamp(150px,34vw,230px);
     margin:0 auto clamp(1.8rem,4vh,2.6rem);
@@ -144,7 +236,7 @@
   .hero h1{animation:rise 1.4s .15s cubic-bezier(.2,.7,.2,1) both}
   .hero .lede{margin-top:1.4rem;animation:rise 1.4s .3s cubic-bezier(.2,.7,.2,1) both}
   .hero .byline{
-    font-family:'Cormorant',serif;letter-spacing:.34em;text-transform:uppercase;
+    font-family:'Cinzel',serif;letter-spacing:.28em;text-transform:uppercase;
     font-size:.8rem;color:var(--dim);margin-top:1.6rem;
     animation:rise 1.4s .4s cubic-bezier(.2,.7,.2,1) both;
   }
@@ -173,7 +265,7 @@
     background:var(--fire);
     color:#fff;
     border:none;border-radius:2px;
-    font-family:'Cormorant',serif;font-weight:600;letter-spacing:.06em;
+    font-family:'Cinzel',serif;font-weight:500;letter-spacing:.05em;
     font-size:1.02rem;
     padding:.9rem 1.5rem;
     cursor:pointer;
@@ -193,7 +285,7 @@
     text-align:center;
   }
   .offer-card .count{
-    font-family:'Cormorant',serif;font-size:clamp(3rem,9vw,5rem);line-height:1;color:var(--ember);
+    font-family:'Cinzel',serif;text-transform:uppercase;font-size:clamp(3rem,9vw,5rem);line-height:1;color:var(--ember);
     display:block;margin-bottom:.3rem;
   }
   .offer-card ul{list-style:none;margin:1.6rem auto 0;max-width:26rem;text-align:left}
@@ -217,7 +309,7 @@
   /* ---- store row ---- */
   .stores{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-top:2rem}
   .store{
-    font-family:'Cormorant',serif;font-weight:500;letter-spacing:.05em;
+    font-family:'Cinzel',serif;font-weight:400;letter-spacing:.08em;font-size:.82rem;
     color:var(--pale);text-decoration:none;
     border:1px solid rgba(232,228,221,.22);border-radius:2px;
     padding:.7rem 1.3rem;font-size:1rem;
@@ -229,7 +321,7 @@
   .store.pending{opacity:.5}
   .store.pending::after{content:" · soon";color:var(--dim);font-size:.75em;letter-spacing:.15em}
   .release-tag{
-    display:inline-block;font-family:'Cormorant',serif;letter-spacing:.3em;text-transform:uppercase;
+    display:inline-block;font-family:'Cinzel',serif;letter-spacing:.22em;text-transform:uppercase;
     font-size:.72rem;color:var(--fire);border:1px solid rgba(224,69,31,.4);border-radius:2px;
     padding:.4rem 1rem;margin-top:1.6rem;
   }
@@ -250,17 +342,25 @@
 </style>
 </head>
 <body>
-<div class="aura"></div>
+<div class="nebula"></div>
 <div class="stars"></div>
 <div class="stars2"></div>
+<div class="stars3"></div>
 
 <main>
 
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <img class="hero-cover" src="assets/cover.jpg" alt="The God of Me — cover: a spirit of fire and a spirit of light reaching toward one another across the void">
-      <h1>The God of Me</h1>
+      <div class="book"><div class="book-inner">
+        <img src="assets/cover.jpg" alt="The God of Me — cover: a spirit of fire and a spirit of light reaching toward one another across the void">
+      </div></div>
+      <h1 class="cover-title">
+        <span class="t-the gold">The</span>
+        <span class="t-god gold">God</span>
+        <span class="t-of"><i class="flr"></i><span class="gold">of</span><i class="flr"></i></span>
+        <span class="t-me gold">Me</span>
+      </h1>
       <p class="lede">Before there was time, there was breath.</p>
       <p class="byline">A novel · Max Sharp</p>
 
@@ -282,7 +382,7 @@
   <section>
     <div class="wrap center prose">
       <p class="eyebrow">The story</p>
-      <h2 style="margin:1.2rem 0 1.8rem">Two spirits, born before the world began — one of fire, one of light.</h2>
+      <h2 class="gold" style="margin:1.2rem 0 1.8rem">Two spirits, born before the world began — one of fire, one of light.</h2>
       <p>Sol was made with a question he could not put down: <em>what am I for.</em> Luna could lean toward a barren world and whisper it into bloom. They fell in love in the space before the first star, and a dying sun made them the colors of what they felt — and then the long forgetting began.</p>
       <p><em>The God of Me</em> is the first book of a six-part mythic saga: a story of purpose and shadow, of a love that has to cross a whole mortal life to find its way home, and of a small white moon hung in the sky to guide the forgotten back to the one who waits.</p>
     </div>
@@ -295,8 +395,8 @@
     <div class="wide">
       <div class="offer-card">
         <p class="eyebrow">The reader's gift</p>
-        <span class="count">Ten</span>
-        <h2>The Hidden Chapters</h2>
+        <span class="count gold">Ten</span>
+        <h2 class="gold">The Hidden Chapters</h2>
         <p style="margin-top:1.2rem;color:var(--pale-dim)">Ten chapters that did not survive the novel's final cut — the canon beneath the story. How the two spirits took their colors. The one who was born into shadow. The voice that once called the lost ones home. They exist in no edition of the book. They arrive only here, one at a time, for those who cross the threshold.</p>
         <ul>
           <li>Delivered by email, one new chapter each week</li>
@@ -321,19 +421,19 @@
   <section>
     <div class="wide center">
       <p class="eyebrow">From the illustrated edition</p>
-      <h2 style="margin-top:1.2rem">Paintings that move</h2>
+      <h2 class="gold" style="margin-top:1.2rem">Paintings that move</h2>
       <p class="prose" style="margin-top:1.2rem;color:var(--pale-dim)">The novel carries original full-color plates. In the enhanced edition, a few of them breathe.</p>
       <div class="gallery">
         <figure class="plate">
-          <video autoplay muted loop playsinline poster="assets/poster_eon.jpg"><source src="assets/eon.mp4" type="video/mp4"></video>
+          <video autoplay muted loop playsinline poster="assets/poster_eon.jpg"><source src="assets/eon_boomerang.mp4" type="video/mp4"></video>
           <figcaption>The first breath</figcaption>
         </figure>
         <figure class="plate">
-          <video autoplay muted loop playsinline poster="assets/poster_bird.jpg"><source src="assets/bird.mp4" type="video/mp4"></video>
+          <video autoplay muted loop playsinline poster="assets/poster_bird.jpg"><source src="assets/bird_boomerang.mp4" type="video/mp4"></video>
           <figcaption>Sol and the bird</figcaption>
         </figure>
         <figure class="plate">
-          <video autoplay muted loop playsinline poster="assets/poster_sharptooth.jpg"><source src="assets/sharptooth.mp4" type="video/mp4"></video>
+          <video autoplay muted loop playsinline poster="assets/poster_sharptooth.jpg"><source src="assets/sharptooth_boomerang.mp4" type="video/mp4"></video>
           <figcaption>Sharp Tooth submits</figcaption>
         </figure>
       </div>
@@ -346,7 +446,7 @@
   <section>
     <div class="wrap center">
       <p class="eyebrow">The book</p>
-      <h2 style="margin-top:1.2rem">Read <em>The God of Me</em></h2>
+      <h2 class="gold" style="margin-top:1.2rem">Read <em>The God of Me</em></h2>
       <div class="release-tag">Pre-order now · Full release January 1, 2027</div>
       <div class="stores">
         <a class="store" href="#" data-store="apple">Apple Books</a>
