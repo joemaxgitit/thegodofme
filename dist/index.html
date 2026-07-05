@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The God of Me — Max Sharp</title>
+<meta name="description" content="A mythic novel of two spirits born before the world. Begin receiving The Hidden Chapters — ten lost chapters, delivered one at a time, found nowhere else.">
+<meta property="og:title" content="The God of Me — Max Sharp">
+<meta property="og:description" content="Before there was time, there was breath. Begin receiving The Hidden Chapters.">
+<meta property="og:image" content="assets/cover.jpg">
+<meta property="og:type" content="book">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#060812;
+    --void-2:#0a0e1c;
+    --ink:#0d1120;
+    --fire:#e0451f;
+    --fire-soft:#c0491f;
+    --ember:#f0a35e;
+    --pale:#e8e4dd;
+    --pale-dim:#b9b6b0;
+    --dim:#7f859c;
+    --seam: linear-gradient(180deg, transparent, var(--ember), var(--fire), transparent);
+    --measure: 40rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--void);
+    color:var(--pale);
+    font-family:'Spectral',Georgia,serif;
+    font-weight:300;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--fire);color:#fff}
+
+  /* ---- ambient starfield ---- */
+  .stars,.stars2{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .stars{
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(232,228,221,.7), transparent),
+      radial-gradient(1px 1px at 60% 70%, rgba(232,228,221,.5), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(232,228,221,.6), transparent),
+      radial-gradient(1px 1px at 35% 85%, rgba(240,163,94,.5), transparent),
+      radial-gradient(1px 1px at 90% 60%, rgba(232,228,221,.4), transparent),
+      radial-gradient(1px 1px at 10% 60%, rgba(232,228,221,.5), transparent),
+      radial-gradient(1px 1px at 48% 15%, rgba(240,163,94,.4), transparent);
+    background-repeat:no-repeat;
+    animation:drift 140s linear infinite;
+    opacity:.9;
+  }
+  .stars2{
+    background-image:
+      radial-gradient(1px 1px at 15% 50%, rgba(232,228,221,.4), transparent),
+      radial-gradient(1px 1px at 70% 40%, rgba(224,69,31,.4), transparent),
+      radial-gradient(1px 1px at 45% 65%, rgba(232,228,221,.35), transparent),
+      radial-gradient(1px 1px at 85% 80%, rgba(232,228,221,.3), transparent),
+      radial-gradient(1px 1px at 25% 10%, rgba(232,228,221,.4), transparent);
+    background-repeat:no-repeat;
+    animation:drift2 200s linear infinite;
+  }
+  @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-40px)}}
+  @keyframes drift2{from{transform:translateY(0)}to{transform:translateY(30px)}}
+
+  /* deep radial glows: fire top-left, light bottom-right — the two spirits */
+  .aura{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60vw 60vh at 12% 8%, rgba(224,69,31,.16), transparent 60%),
+      radial-gradient(55vw 55vh at 88% 96%, rgba(200,205,225,.10), transparent 60%),
+      radial-gradient(40vw 40vh at 60% 50%, rgba(240,163,94,.06), transparent 70%);
+  }
+
+  main{position:relative;z-index:1}
+  section{padding:clamp(4.5rem,11vh,9rem) 1.5rem;position:relative}
+  .wrap{max-width:var(--measure);margin:0 auto}
+  .wide{max-width:64rem;margin:0 auto}
+
+  /* the signature: a vertical seam of light between sections */
+  .seam{width:1px;height:clamp(3rem,8vh,6rem);margin:0 auto;background:var(--seam);opacity:.7}
+
+  /* ---- type ---- */
+  .eyebrow{
+    font-family:'Cormorant',serif;
+    font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:.42em;
+    font-size:.72rem;
+    color:var(--ember);
+    margin-left:.42em;
+  }
+  h1{
+    font-family:'Cormorant',serif;
+    font-weight:400;
+    font-size:clamp(3.2rem,12vw,7rem);
+    line-height:.94;
+    letter-spacing:.01em;
+    color:var(--pale);
+  }
+  h2{
+    font-family:'Cormorant',serif;
+    font-weight:400;
+    font-size:clamp(2rem,5.5vw,3.2rem);
+    line-height:1.05;
+    letter-spacing:.01em;
+    color:var(--pale);
+  }
+  h3{
+    font-family:'Cormorant',serif;
+    font-weight:500;
+    font-size:1.5rem;
+    letter-spacing:.02em;
+    color:var(--ember);
+  }
+  .lede{
+    font-family:'Cormorant',serif;
+    font-weight:300;
+    font-style:italic;
+    font-size:clamp(1.35rem,3.4vw,1.9rem);
+    line-height:1.4;
+    color:var(--pale-dim);
+  }
+  p{max-width:38rem;margin-inline:auto}
+  p+p{margin-top:1.15rem}
+  .prose p{color:var(--pale-dim)}
+  .center{text-align:center}
+
+  /* ---- hero ---- */
+  .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding-top:clamp(3rem,8vh,6rem);padding-bottom:clamp(3rem,8vh,6rem);text-align:center}
+  .hero-cover{
+    width:clamp(150px,34vw,230px);
+    margin:0 auto clamp(1.8rem,4vh,2.6rem);
+    border-radius:3px;
+    box-shadow:0 0 60px rgba(224,69,31,.22), 0 20px 60px rgba(0,0,0,.6);
+    display:block;
+    animation:rise 1.4s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+  .hero h1{animation:rise 1.4s .15s cubic-bezier(.2,.7,.2,1) both}
+  .hero .lede{margin-top:1.4rem;animation:rise 1.4s .3s cubic-bezier(.2,.7,.2,1) both}
+  .hero .byline{
+    font-family:'Cormorant',serif;letter-spacing:.34em;text-transform:uppercase;
+    font-size:.8rem;color:var(--dim);margin-top:1.6rem;
+    animation:rise 1.4s .4s cubic-bezier(.2,.7,.2,1) both;
+  }
+
+  /* ---- capture form ---- */
+  .capture{margin:clamp(2.2rem,5vh,3rem) auto 0;max-width:30rem;animation:rise 1.4s .5s cubic-bezier(.2,.7,.2,1) both}
+  .capture .offer{
+    font-family:'Cormorant',serif;font-style:italic;font-size:1.15rem;color:var(--ember);
+    margin-bottom:1rem;
+  }
+  form.signup{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+  input[type=email]{
+    flex:1 1 15rem;min-width:0;
+    background:rgba(232,228,221,.04);
+    border:1px solid rgba(232,228,221,.22);
+    border-radius:2px;
+    color:var(--pale);
+    font-family:'Spectral',serif;font-size:1rem;
+    padding:.9rem 1.1rem;
+    transition:border-color .3s, background .3s;
+  }
+  input[type=email]::placeholder{color:var(--dim)}
+  input[type=email]:focus{outline:none;border-color:var(--ember);background:rgba(240,163,94,.06)}
+  button{
+    flex:0 0 auto;
+    background:var(--fire);
+    color:#fff;
+    border:none;border-radius:2px;
+    font-family:'Cormorant',serif;font-weight:600;letter-spacing:.06em;
+    font-size:1.02rem;
+    padding:.9rem 1.5rem;
+    cursor:pointer;
+    transition:background .3s, transform .2s, box-shadow .3s;
+  }
+  button:hover{background:#f0501f;transform:translateY(-1px);box-shadow:0 8px 30px rgba(224,69,31,.35)}
+  button:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+  .fineprint{font-size:.8rem;color:var(--dim);margin-top:.9rem}
+  .formnote{min-height:1.2rem;margin-top:.8rem;font-family:'Cormorant',serif;font-style:italic;font-size:1.05rem;color:var(--ember)}
+
+  /* ---- hidden chapters offer block ---- */
+  .offer-card{
+    background:linear-gradient(180deg, rgba(224,69,31,.06), rgba(13,17,32,.4));
+    border:1px solid rgba(240,163,94,.18);
+    border-radius:4px;
+    padding:clamp(2rem,5vw,3.2rem);
+    text-align:center;
+  }
+  .offer-card .count{
+    font-family:'Cormorant',serif;font-size:clamp(3rem,9vw,5rem);line-height:1;color:var(--ember);
+    display:block;margin-bottom:.3rem;
+  }
+  .offer-card ul{list-style:none;margin:1.6rem auto 0;max-width:26rem;text-align:left}
+  .offer-card li{padding:.55rem 0 .55rem 1.6rem;position:relative;color:var(--pale-dim);border-top:1px solid rgba(232,228,221,.08)}
+  .offer-card li:first-child{border-top:none}
+  .offer-card li::before{content:"";position:absolute;left:0;top:1.05rem;width:.5rem;height:.5rem;
+    background:var(--fire);border-radius:50%;box-shadow:0 0 8px var(--fire)}
+
+  /* ---- gallery ---- */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:2.5rem}
+  .plate{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:3/4;background:var(--ink);
+    border:1px solid rgba(232,228,221,.08)}
+  .plate video,.plate img{width:100%;height:100%;object-fit:cover;display:block}
+  .plate figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:1.4rem .9rem .7rem;
+    background:linear-gradient(transparent, rgba(6,8,18,.9));
+    font-family:'Cormorant',serif;font-style:italic;font-size:.95rem;color:var(--pale);
+  }
+  @media(max-width:620px){.gallery{grid-template-columns:1fr;max-width:22rem;margin-inline:auto}}
+
+  /* ---- store row ---- */
+  .stores{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-top:2rem}
+  .store{
+    font-family:'Cormorant',serif;font-weight:500;letter-spacing:.05em;
+    color:var(--pale);text-decoration:none;
+    border:1px solid rgba(232,228,221,.22);border-radius:2px;
+    padding:.7rem 1.3rem;font-size:1rem;
+    transition:border-color .3s,color .3s,background .3s;
+  }
+  .store:hover{border-color:var(--ember);color:var(--ember);background:rgba(240,163,94,.05)}
+  .store.pending{opacity:.5}
+  .store.pending::after{content:" · soon";font-size:.72rem;color:var(--dim);font-style:italic}
+  .store.pending{opacity:.5}
+  .store.pending::after{content:" · soon";color:var(--dim);font-size:.75em;letter-spacing:.15em}
+  .release-tag{
+    display:inline-block;font-family:'Cormorant',serif;letter-spacing:.3em;text-transform:uppercase;
+    font-size:.72rem;color:var(--fire);border:1px solid rgba(224,69,31,.4);border-radius:2px;
+    padding:.4rem 1rem;margin-top:1.6rem;
+  }
+
+  /* ---- series ---- */
+  .series-line{font-family:'Cormorant',serif;font-style:italic;font-size:1.3rem;color:var(--pale-dim);line-height:1.5}
+
+  /* ---- footer ---- */
+  footer{padding:clamp(3.5rem,8vh,6rem) 1.5rem clamp(2.5rem,5vh,3.5rem);text-align:center;
+    border-top:1px solid rgba(232,228,221,.08);position:relative;z-index:1}
+  footer .cred{font-size:.8rem;color:var(--dim);margin-top:2rem;line-height:1.9}
+  footer a.q{color:var(--pale-dim);text-decoration:none;border-bottom:1px solid rgba(240,163,94,.3)}
+  footer a.q:hover{color:var(--ember)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+<div class="aura"></div>
+<div class="stars"></div>
+<div class="stars2"></div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <img class="hero-cover" src="assets/cover.jpg" alt="The God of Me — cover: a spirit of fire and a spirit of light reaching toward one another across the void">
+      <h1>The God of Me</h1>
+      <p class="lede">Before there was time, there was breath.</p>
+      <p class="byline">A novel · Max Sharp</p>
+
+      <div class="capture">
+        <p class="offer">Begin receiving The Hidden Chapters —<br>the lost canon beneath the book.</p>
+        <form class="signup" id="signup" novalidate>
+          <input type="email" id="email" name="email" placeholder="Your email" aria-label="Your email address" required>
+          <button type="submit">Send me the first</button>
+        </form>
+        <p class="formnote" id="formnote" role="status" aria-live="polite"></p>
+        <p class="fineprint">Ten dispatches from before the world. One at a time. Nothing else — no noise, and you can leave whenever you like.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <!-- THE MYTH -->
+  <section>
+    <div class="wrap center prose">
+      <p class="eyebrow">The story</p>
+      <h2 style="margin:1.2rem 0 1.8rem">Two spirits, born before the world began — one of fire, one of light.</h2>
+      <p>Sol was made with a question he could not put down: <em>what am I for.</em> Luna could lean toward a barren world and whisper it into bloom. They fell in love in the space before the first star, and a dying sun made them the colors of what they felt — and then the long forgetting began.</p>
+      <p><em>The God of Me</em> is the first book of a six-part mythic saga: a story of purpose and shadow, of a love that has to cross a whole mortal life to find its way home, and of a small white moon hung in the sky to guide the forgotten back to the one who waits.</p>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <!-- THE HIDDEN CHAPTERS OFFER -->
+  <section>
+    <div class="wide">
+      <div class="offer-card">
+        <p class="eyebrow">The reader's gift</p>
+        <span class="count">Ten</span>
+        <h2>The Hidden Chapters</h2>
+        <p style="margin-top:1.2rem;color:var(--pale-dim)">Ten chapters that did not survive the novel's final cut — the canon beneath the story. How the two spirits took their colors. The one who was born into shadow. The voice that once called the lost ones home. They exist in no edition of the book. They arrive only here, one at a time, for those who cross the threshold.</p>
+        <ul>
+          <li>Delivered by email, one new chapter each week</li>
+          <li>Each a complete story — read in a single sitting</li>
+          <li>Found in no version of the novel, anywhere</li>
+          <li>Yours to keep; leave the moment you wish</li>
+        </ul>
+        <div class="capture" style="margin-top:2.2rem">
+          <form class="signup" id="signup2" novalidate>
+            <input type="email" id="email2" name="email" placeholder="Your email" aria-label="Your email address" required>
+            <button type="submit">Begin the chapters</button>
+          </form>
+          <p class="formnote" id="formnote2" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <!-- GALLERY -->
+  <section>
+    <div class="wide center">
+      <p class="eyebrow">From the illustrated edition</p>
+      <h2 style="margin-top:1.2rem">Paintings that move</h2>
+      <p class="prose" style="margin-top:1.2rem;color:var(--pale-dim)">The novel carries original full-color plates. In the enhanced edition, a few of them breathe.</p>
+      <div class="gallery">
+        <figure class="plate">
+          <video autoplay muted loop playsinline poster="assets/poster_eon.jpg"><source src="assets/eon.mp4" type="video/mp4"></video>
+          <figcaption>The first breath</figcaption>
+        </figure>
+        <figure class="plate">
+          <video autoplay muted loop playsinline poster="assets/poster_bird.jpg"><source src="assets/bird.mp4" type="video/mp4"></video>
+          <figcaption>Sol and the bird</figcaption>
+        </figure>
+        <figure class="plate">
+          <video autoplay muted loop playsinline poster="assets/poster_sharptooth.jpg"><source src="assets/sharptooth.mp4" type="video/mp4"></video>
+          <figcaption>Sharp Tooth submits</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <!-- STORE ROW -->
+  <section>
+    <div class="wrap center">
+      <p class="eyebrow">The book</p>
+      <h2 style="margin-top:1.2rem">Read <em>The God of Me</em></h2>
+      <div class="release-tag">Pre-order now · Full release January 1, 2027</div>
+      <div class="stores">
+        <a class="store" href="#" data-store="apple">Apple Books</a>
+        <a class="store" href="#" data-store="amazon">Amazon</a>
+        <a class="store" href="#" data-store="barnesnoble">Barnes &amp; Noble</a>
+        <a class="store" href="#" data-store="kobo">Kobo</a>
+        <a class="store" href="#" data-store="google">Google Play</a>
+      </div>
+      <p class="fineprint" style="margin-top:1.4rem">Pre-order where available. Subscribers hear the moment it opens.</p>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <!-- SERIES -->
+  <section>
+    <div class="wrap center">
+      <p class="eyebrow">The saga</p>
+      <p class="series-line" style="margin-top:1.4rem">Six books. One love, carried across the making and unmaking of worlds.<br>Some things are not invented. They are remembered.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <p class="eyebrow">Cross the threshold</p>
+    <div class="capture" style="margin-top:1.4rem">
+      <form class="signup" id="signup3" novalidate>
+        <input type="email" id="email3" name="email" placeholder="Your email" aria-label="Your email address" required>
+        <button type="submit">Send me the Hidden Chapters</button>
+      </form>
+      <p class="formnote" id="formnote3" role="status" aria-live="polite"></p>
+    </div>
+    <p class="cred">
+      <em>The God of Me</em> · Max Sharp<br>
+      Cover art inspired by the work of Sergei Musin<br>
+      <a class="q" href="mailto:hello@thegodofme.com">Contact</a>
+    </p>
+    <p class="cred" style="font-size:.68rem;color:var(--dim);opacity:.75;margin-top:1.2rem;max-width:34rem;margin-inline:auto">
+      Apple Books is a service mark of Apple Inc. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. All other retailer names are trademarks of their respective owners. This site is independent and is not affiliated with, sponsored, or endorsed by these retailers.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // MailerLite "Hidden Chapters" form — account 2489770, form 192118237601727606.
+  // Submits to MailerLite via a hidden iframe so it works from any static host
+  // without CORS issues, while keeping our own custom form design.
+  const ML_ACTION = "https://assets.mailerlite.com/jsonp/2489770/forms/192118237601727606/subscribe";
+
+  function isEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}
+
+  // one shared hidden iframe as the POST target (no page navigation)
+  function mlSink(){
+    let f=document.getElementById('ml-sink');
+    if(!f){
+      f=document.createElement('iframe');
+      f.id='ml-sink'; f.name='ml-sink';
+      f.style.display='none';
+      document.body.appendChild(f);
+    }
+    return f;
+  }
+
+  function subscribe(emailEl, noteEl){
+    const email=(emailEl.value||'').trim();
+    if(!isEmail(email)){
+      noteEl.textContent="Please enter a valid email.";
+      noteEl.style.color="var(--fire)";
+      emailEl.focus();
+      return;
+    }
+    mlSink();
+    // build a real form posting to MailerLite, targeting the hidden iframe
+    const tmp=document.createElement('form');
+    tmp.action=ML_ACTION;
+    tmp.method='post';
+    tmp.target='ml-sink';
+    tmp.style.display='none';
+    const fld=document.createElement('input');
+    fld.type='email'; fld.name='fields[email]'; fld.value=email;
+    const sub=document.createElement('input');
+    sub.type='hidden'; sub.name='ml-submit'; sub.value='1';
+    const csrf=document.createElement('input');
+    csrf.type='hidden'; csrf.name='anticsrf'; csrf.value='true';
+    tmp.appendChild(fld); tmp.appendChild(sub); tmp.appendChild(csrf);
+    document.body.appendChild(tmp);
+    tmp.submit();
+    setTimeout(function(){tmp.remove()}, 1500);
+
+    // confirm to the visitor (MailerLite double opt-in email follows)
+    noteEl.style.color="var(--ember)";
+    noteEl.textContent="Look for a note in your inbox to confirm — the first chapter follows.";
+    emailEl.value="";
+  }
+  document.querySelectorAll('form.signup').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      const input=f.querySelector('input[type=email]');
+      const note=f.parentElement.querySelector('.formnote');
+      subscribe(input,note);
+    });
+  });
+
+  // Store links — drop real URLs here as they go live.
+  const STORE_URLS={
+    apple:"https://books.apple.com/us/book/the-god-of-me/id6786868432",
+    amazon:"https://www.amazon.com/dp/B0H6R3YNLH",
+    barnesnoble:"",
+    kobo:"", google:""
+  };
+  document.querySelectorAll('.store').forEach(function(a){
+    const key=a.getAttribute('data-store');
+    const url=STORE_URLS[key];
+    if(url){
+      a.href=url;
+      a.target="_blank";
+      a.rel="noopener";
+    } else {
+      a.classList.add('pending');
+      a.addEventListener('click',function(e){
+        e.preventDefault();
+        const tag=document.querySelector('.release-tag');
+        tag.textContent="This store opens closer to January 1 — subscribe to hear first";
+        setTimeout(function(){tag.textContent="Pre-order now · Full release January 1, 2027"},3200);
+      });
+    }
+  });
+</script>
+</body>
+</html>
