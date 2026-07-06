@@ -42,6 +42,11 @@
   }
   ::selection{background:var(--fire);color:#fff}
 
+  /* ---- photographic nebula base, scrimmed dark; gradients above tint it ---- */
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(rgba(7,8,15,.64),rgba(7,8,15,.64)),
+      url("assets/nebula_bg.jpg") center / cover no-repeat;}
+
   /* ---- deep-space nebula: color at the edges, calm dark in the center ---- */
   /* Fire nebula top-left, light nebula bottom-right — the two spirits, felt as sky. */
   .nebula{position:fixed;inset:-10%;z-index:0;pointer-events:none;
