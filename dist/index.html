@@ -315,6 +315,10 @@
     font-size:clamp(2rem,6vw,3.4rem);line-height:1.12;letter-spacing:.06em;color:var(--pale);margin-top:1.2rem}
   .wrl-sub{font-family:'Cormorant',serif;font-style:italic;font-size:clamp(1.25rem,3vw,1.6rem);
     color:var(--pale-dim);line-height:1.5;margin-top:1.8rem}
+  .rabbit-art{margin:2.6rem auto 0;max-width:680px}
+  .rabbit-art img{width:100%;display:block;
+    -webkit-mask-image:radial-gradient(ellipse 95% 90% at 50% 50%, #000 55%, transparent 99%);
+    mask-image:radial-gradient(ellipse 95% 90% at 50% 50%, #000 55%, transparent 99%)}
   .wrl-line{font-family:'Cormorant',serif;font-size:clamp(1.15rem,2.6vw,1.4rem);
     color:var(--ember);margin-top:1.2rem;letter-spacing:.02em}
 
@@ -371,6 +375,9 @@
       <h2 class="wrl-title">The White<br>Rabbit Letters</h2>
       <p class="wrl-sub">Ten chapters lie hidden beneath this book.<br>No store carries them. No edition contains them.</p>
       <p class="wrl-line">They are sent &mdash; one at a time &mdash; to those who follow.</p>
+      <div class="rabbit-art">
+        <img src="assets/white_rabbit.jpg" alt="A luminous white rabbit leaping through deep space, trailing stardust" loading="lazy">
+      </div>
       <div class="capture" style="margin-top:2.6rem">
         <form class="signup" id="signup" novalidate>
           <input type="email" id="email" name="email" placeholder="Your email" aria-label="Your email address" required>
