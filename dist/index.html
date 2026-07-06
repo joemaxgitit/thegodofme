@@ -141,19 +141,20 @@
     letter-spacing:.04em;
     color:var(--pale);
   }
-  /* single-line title matching the v25 interior title page — Cinzel caps, wide tracking */
-  .cover-title{
-    font-family:'Cinzel',serif;font-weight:500;text-transform:uppercase;
-    font-size:clamp(1.5rem,5.5vw,3rem);
-    letter-spacing:.22em;
-    line-height:1.2;
-    color:var(--pale);
-    margin-right:-.22em;
-  }
-  .title-rule{
-    width:clamp(70px,14vw,120px);height:1px;margin:1.4rem auto 0;
-    background:linear-gradient(90deg,transparent,var(--pale-dim),transparent);opacity:.6;
-  }
+  /* cover-matching stacked title */
+  .cover-title{display:flex;flex-direction:column;align-items:center;gap:.05em;line-height:.9;letter-spacing:.06em}
+  .cover-title .t-the{font-size:.42em;letter-spacing:.32em;margin-right:-.32em}
+  .cover-title .t-god{font-size:1.28em}
+  .cover-title .t-me{font-size:1.28em}
+  .cover-title .t-of{display:flex;align-items:center;justify-content:center;gap:.9em;font-size:.5em;letter-spacing:.3em;margin:.14em 0}
+  .cover-title .t-of .gold{margin-right:-.3em}
+  /* one hairline + one diamond exactly at the inner tip (next to OF), mirrored on each side */
+  .cover-title .flr{position:relative;display:inline-block;width:2.6em;height:1px;
+    background:linear-gradient(90deg,transparent,var(--gold) 92%);}
+  .cover-title .flr::after{content:"\2666";position:absolute;top:50%;right:0;
+    transform:translate(85%,-50%);font-size:8px;line-height:1;color:var(--gold)}
+  /* right side is a mirror of the left */
+  .cover-title .t-of .flr:last-of-type{transform:scaleX(-1)}
   h2{
     font-family:'Cinzel',serif;
     font-weight:400;
@@ -187,20 +188,41 @@
   /* ---- hero ---- */
   .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
     padding-top:clamp(3rem,8vh,6rem);padding-bottom:clamp(3rem,8vh,6rem);text-align:center}
-  /* flat cover shown head-on, clean, with soft glow + shadow (no side edges) */
+  /* 3D physical book: cover + spine edge + page block + shadow */
   .book{
     width:clamp(160px,32vw,240px);
     margin:0 auto clamp(2rem,4vh,2.8rem);
+    perspective:1600px;
     animation:rise 1.4s cubic-bezier(.2,.7,.2,1) both;
   }
-  .book-inner{position:relative;display:inline-block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-  .book:hover .book-inner{transform:translateY(-4px)}
+  .book-inner{
+    position:relative;
+    transform:rotateY(-14deg) rotateX(2deg);
+    transform-style:preserve-3d;
+    transition:transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .book:hover .book-inner{transform:rotateY(-6deg) rotateX(1deg)}
   .book-inner img{
-    display:block;width:100%;border-radius:4px;
+    display:block;width:100%;border-radius:2px 5px 5px 2px;
     box-shadow:
-      0 2px 6px rgba(0,0,0,.5),
-      0 22px 50px rgba(0,0,0,.62),
-      0 0 80px rgba(224,69,31,.18);
+      0 2px 4px rgba(0,0,0,.4),
+      0 14px 40px rgba(0,0,0,.55),
+      0 0 70px rgba(224,69,31,.18);
+    position:relative;z-index:2;
+  }
+  /* the spine — dark gradient strip on the left, rotated back */
+  .book-inner::before{
+    content:"";position:absolute;top:0;left:0;height:100%;width:26px;
+    background:linear-gradient(90deg,#05060c,#12101c 40%,#1c1826);
+    transform:translateX(-24px) rotateY(78deg);transform-origin:right center;
+    border-radius:3px 0 0 3px;z-index:1;
+  }
+  /* the page block — off-white edges on the right, gives thickness */
+  .book-inner::after{
+    content:"";position:absolute;top:1.5%;right:0;height:97%;width:14px;
+    background:repeating-linear-gradient(90deg,#d8d2c4,#d8d2c4 1px,#c3bcab 1px,#c3bcab 2px);
+    transform:translateX(12px) rotateY(-82deg);transform-origin:left center;
+    border-radius:0 2px 2px 0;z-index:1;
   }
   .hero-cover{
     width:clamp(150px,34vw,230px);
@@ -214,8 +236,8 @@
   .hero h1{animation:rise 1.4s .15s cubic-bezier(.2,.7,.2,1) both}
   .hero .lede{margin-top:1.4rem;animation:rise 1.4s .3s cubic-bezier(.2,.7,.2,1) both}
   .hero .byline{
-    font-family:'Cinzel',serif;letter-spacing:.34em;text-transform:uppercase;
-    font-size:.72rem;color:var(--pale-dim);margin-top:1.1rem;margin-right:-.34em;
+    font-family:'Cinzel',serif;letter-spacing:.28em;text-transform:uppercase;
+    font-size:.8rem;color:var(--dim);margin-top:1.6rem;
     animation:rise 1.4s .4s cubic-bezier(.2,.7,.2,1) both;
   }
 
@@ -305,18 +327,7 @@
   }
 
   /* ---- series ---- */
-  .series-line{font-family:'Cormorant',serif;font-style:italic;font-size:clamp(1.4rem,3.4vw,1.9rem);color:var(--pale-dim);line-height:1.7}
-
-  /* ---- mystery copy ---- */
-  .myth-line{font-family:'Cormorant',serif;font-style:italic;font-size:clamp(1.5rem,4vw,2.2rem);
-    color:var(--pale-dim);line-height:1.5;max-width:32rem;margin:0 auto .4rem}
-  .myth-line:last-child{color:var(--pale);margin-top:1.2rem}
-  .wrl-title{font-family:'Cinzel',serif;font-weight:500;text-transform:uppercase;
-    font-size:clamp(2rem,6vw,3.4rem);line-height:1.12;letter-spacing:.06em;color:var(--pale);margin-top:1.2rem}
-  .wrl-sub{font-family:'Cormorant',serif;font-style:italic;font-size:clamp(1.25rem,3vw,1.6rem);
-    color:var(--pale-dim);line-height:1.5;margin-top:1.8rem}
-  .wrl-line{font-family:'Cormorant',serif;font-size:clamp(1.15rem,2.6vw,1.4rem);
-    color:var(--ember);margin-top:1.2rem;letter-spacing:.02em}
+  .series-line{font-family:'Cormorant',serif;font-style:italic;font-size:1.3rem;color:var(--pale-dim);line-height:1.5}
 
   /* ---- footer ---- */
   footer{padding:clamp(3.5rem,8vh,6rem) 1.5rem clamp(2.5rem,5vh,3.5rem);text-align:center;
@@ -342,61 +353,88 @@
   <section class="hero">
     <div class="wrap">
       <div class="book"><div class="book-inner">
-        <img src="assets/cover.jpg" alt="The God of Me">
+        <img src="assets/cover.jpg" alt="The God of Me — cover: a spirit of fire and a spirit of light reaching toward one another across the void">
       </div></div>
-      <h1 class="cover-title">The God of Me</h1>
-      <div class="title-rule"></div>
-      <p class="byline">Max Sharp</p>
+      <h1 class="cover-title">
+        <span class="t-the gold">The</span>
+        <span class="t-god gold">God</span>
+        <span class="t-of"><i class="flr"></i><span class="gold">of</span><i class="flr"></i></span>
+        <span class="t-me gold">Me</span>
+      </h1>
       <p class="lede">Before there was time, there was breath.</p>
-    </div>
-  </section>
+      <p class="byline">A novel · Max Sharp</p>
 
-  <div class="seam"></div>
-
-  <!-- THE MYTH — withheld -->
-  <section>
-    <div class="wrap center prose">
-      <p class="myth-line">A spirit made to witness.</p>
-      <p class="myth-line">A world he was forbidden to touch.</p>
-      <p class="myth-line">And the one mercy that unmade everything.</p>
-    </div>
-  </section>
-
-  <div class="seam"></div>
-
-  <!-- THE WHITE RABBIT LETTERS — the magnet, mystery-first -->
-  <section>
-    <div class="wrap center">
-      <p class="eyebrow">Follow</p>
-      <h2 class="wrl-title">The White<br>Rabbit Letters</h2>
-      <p class="wrl-sub">Ten chapters were cut from this book.<br>They were never destroyed.</p>
-      <p class="wrl-line">Read them before the world does.</p>
-      <div class="capture" style="margin-top:2.6rem">
+      <div class="capture">
+        <p class="offer">Begin receiving The Hidden Chapters —<br>the lost canon beneath the book.</p>
         <form class="signup" id="signup" novalidate>
           <input type="email" id="email" name="email" placeholder="Your email" aria-label="Your email address" required>
-          <button type="submit">Follow the rabbit</button>
+          <button type="submit">Send me the first</button>
         </form>
         <p class="formnote" id="formnote" role="status" aria-live="polite"></p>
-        <p class="fineprint">Ten letters. Then, on occasion, word from before the next world.</p>
+        <p class="fineprint">Ten dispatches from before the world. One at a time. Nothing else — no noise, and you can leave whenever you like.</p>
       </div>
     </div>
   </section>
 
   <div class="seam"></div>
 
-  <!-- GALLERY — no captions, let them wonder -->
+  <!-- THE MYTH -->
+  <section>
+    <div class="wrap center prose">
+      <p class="eyebrow">The story</p>
+      <h2 class="gold" style="margin:1.2rem 0 1.8rem">Two spirits, born before the world began — one of fire, one of light.</h2>
+      <p>Sol was made with a question he could not put down: <em>what am I for.</em> Luna could lean toward a barren world and whisper it into bloom. They fell in love in the space before the first star, and a dying sun made them the colors of what they felt — and then the long forgetting began.</p>
+      <p><em>The God of Me</em> is the first book of a six-part mythic saga: a story of purpose and shadow, of a love that has to cross a whole mortal life to find its way home, and of a small white moon hung in the sky to guide the forgotten back to the one who waits.</p>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <!-- THE HIDDEN CHAPTERS OFFER -->
+  <section>
+    <div class="wide">
+      <div class="offer-card">
+        <p class="eyebrow">The reader's gift</p>
+        <span class="count gold">Ten</span>
+        <h2 class="gold">The Hidden Chapters</h2>
+        <p style="margin-top:1.2rem;color:var(--pale-dim)">Ten chapters that did not survive the novel's final cut — the canon beneath the story. How the two spirits took their colors. The one who was born into shadow. The voice that once called the lost ones home. They exist in no edition of the book. They arrive only here, one at a time, for those who cross the threshold.</p>
+        <ul>
+          <li>Delivered by email, one new chapter each week</li>
+          <li>Each a complete story — read in a single sitting</li>
+          <li>Found in no version of the novel, anywhere</li>
+          <li>Yours to keep; leave the moment you wish</li>
+        </ul>
+        <div class="capture" style="margin-top:2.2rem">
+          <form class="signup" id="signup2" novalidate>
+            <input type="email" id="email2" name="email" placeholder="Your email" aria-label="Your email address" required>
+            <button type="submit">Begin the chapters</button>
+          </form>
+          <p class="formnote" id="formnote2" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam"></div>
+
+  <!-- GALLERY -->
   <section>
     <div class="wide center">
-      <p class="eyebrow">Glimpses</p>
+      <p class="eyebrow">From the illustrated edition</p>
+      <h2 class="gold" style="margin-top:1.2rem">Paintings that move</h2>
+      <p class="prose" style="margin-top:1.2rem;color:var(--pale-dim)">The novel carries original full-color plates. In the enhanced edition, a few of them breathe.</p>
       <div class="gallery">
         <figure class="plate">
-          <video class="plate-vid" autoplay muted playsinline poster="assets/poster_eon.jpg"><source src="assets/eon.mp4" type="video/mp4"></video>
+          <video autoplay muted loop playsinline poster="assets/poster_eon.jpg"><source src="assets/eon_boomerang.mp4" type="video/mp4"></video>
+          <figcaption>The first breath</figcaption>
         </figure>
         <figure class="plate">
-          <video class="plate-vid" autoplay muted playsinline poster="assets/poster_bird.jpg"><source src="assets/bird.mp4" type="video/mp4"></video>
+          <video autoplay muted loop playsinline poster="assets/poster_bird.jpg"><source src="assets/bird_boomerang.mp4" type="video/mp4"></video>
+          <figcaption>Sol and the bird</figcaption>
         </figure>
         <figure class="plate">
-          <video class="plate-vid" autoplay muted playsinline poster="assets/poster_sharptooth.jpg"><source src="assets/sharptooth.mp4" type="video/mp4"></video>
+          <video autoplay muted loop playsinline poster="assets/poster_sharptooth.jpg"><source src="assets/sharptooth_boomerang.mp4" type="video/mp4"></video>
+          <figcaption>Sharp Tooth submits</figcaption>
         </figure>
       </div>
     </div>
@@ -404,11 +442,12 @@
 
   <div class="seam"></div>
 
-  <!-- STORE ROW — quiet -->
+  <!-- STORE ROW -->
   <section>
     <div class="wrap center">
       <p class="eyebrow">The book</p>
-      <div class="release-tag" style="margin-top:1.4rem">January 1, 2027</div>
+      <h2 class="gold" style="margin-top:1.2rem">Read <em>The God of Me</em></h2>
+      <div class="release-tag">Pre-order now · Full release January 1, 2027</div>
       <div class="stores">
         <a class="store" href="#" data-store="apple">Apple Books</a>
         <a class="store" href="#" data-store="amazon">Amazon</a>
@@ -416,6 +455,7 @@
         <a class="store" href="#" data-store="kobo">Kobo</a>
         <a class="store" href="#" data-store="google">Google Play</a>
       </div>
+      <p class="fineprint" style="margin-top:1.4rem">Pre-order where available. Subscribers hear the moment it opens.</p>
     </div>
   </section>
 
@@ -424,7 +464,8 @@
   <!-- SERIES -->
   <section>
     <div class="wrap center">
-      <p class="series-line">Six books.<br>Some things are not invented.<br>They are remembered.</p>
+      <p class="eyebrow">The saga</p>
+      <p class="series-line" style="margin-top:1.4rem">Six books. One love, carried across the making and unmaking of worlds.<br>Some things are not invented. They are remembered.</p>
     </div>
   </section>
 
@@ -433,12 +474,21 @@
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
+    <p class="eyebrow">Cross the threshold</p>
+    <div class="capture" style="margin-top:1.4rem">
+      <form class="signup" id="signup3" novalidate>
+        <input type="email" id="email3" name="email" placeholder="Your email" aria-label="Your email address" required>
+        <button type="submit">Send me the Hidden Chapters</button>
+      </form>
+      <p class="formnote" id="formnote3" role="status" aria-live="polite"></p>
+    </div>
     <p class="cred">
       <em>The God of Me</em> · Max Sharp<br>
       Cover art inspired by the work of Sergei Musin<br>
-      <a class="q" href="mailto:hello@thegodofme.com">Contact</a>
+      <a class="q" href="mailto:max@thegodofme.com">Contact</a> &nbsp;·&nbsp; <a class="q" href="/privacy.html">Privacy</a>
     </p>
-    <p class="cred" style="font-size:.68rem;color:var(--dim);opacity:.7;margin-top:1.2rem;max-width:34rem;margin-inline:auto">
+    <p class="cred" style="margin-top:1.2rem">© 2026 Max Sharp. All rights reserved.</p>
+    <p class="cred" style="font-size:.68rem;color:var(--dim);opacity:.75;margin-top:1.2rem;max-width:34rem;margin-inline:auto">
       Apple Books is a service mark of Apple Inc. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates. All other retailer names are trademarks of their respective owners. This site is independent and is not affiliated with, sponsored, or endorsed by these retailers.
     </p>
   </div>
@@ -495,18 +545,6 @@
     noteEl.textContent="Look for a note in your inbox to confirm — the first chapter follows.";
     emailEl.value="";
   }
-  // Plate videos: play once through on load, then replay on hover (or tap on mobile).
-  document.querySelectorAll('.plate-vid').forEach(function(v){
-    // ensure it plays through once on load
-    v.addEventListener('loadeddata',function(){ v.play().catch(function(){}); });
-    // replay from the start on hover
-    const replay=function(){ try{ v.currentTime=0; v.play(); }catch(e){} };
-    const parent=v.closest('.plate')||v;
-    parent.addEventListener('mouseenter',replay);
-    // mobile: tap to replay
-    parent.addEventListener('click',replay);
-  });
-
   document.querySelectorAll('form.signup').forEach(function(f){
     f.addEventListener('submit',function(e){
       e.preventDefault();
