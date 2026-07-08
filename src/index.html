@@ -317,7 +317,8 @@
     background:var(--fire);border-radius:50%;box-shadow:0 0 8px var(--fire)}
 
   /* ---- gallery ---- */
-  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:2.5rem}
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:2.5rem}
+  @media (max-width:700px){.gallery{grid-template-columns:repeat(2,1fr)}}
   .plate{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:3/4;background:var(--ink);
     border:1px solid rgba(232,228,221,.08)}
   .plate video,.plate img{width:100%;height:100%;object-fit:cover;display:block}
@@ -451,7 +452,10 @@
           <video class="plate-vid" autoplay muted playsinline poster="assets/poster_bird.jpg"><source src="assets/bird.mp4" type="video/mp4"></video>
         </figure>
         <figure class="plate">
-          <video class="plate-vid" autoplay muted playsinline poster="assets/poster_sharptooth.jpg"><source src="assets/sharptooth.mp4" type="video/mp4"></video>
+          <video class="plate-vid" autoplay muted playsinline poster="assets/poster_sol_luna.jpg"><source src="assets/sol_luna.mp4" type="video/mp4"></video>
+        </figure>
+        <figure class="plate">
+          <video class="plate-vid" autoplay muted playsinline poster="assets/poster_ari.jpg"><source src="assets/ari.mp4" type="video/mp4"></video>
         </figure>
       </div>
       <p class="wrl-line" style="margin-top:2.2rem">Within the Apple Books edition, they live inside the pages.</p>
