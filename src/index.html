@@ -175,11 +175,11 @@
     display:block;
     width:100%;
     text-align:center;
-    margin-left:0;
-    padding-left:.34em;
   }
-  /* diamond flourishes around eyebrows */
+  /* diamond flourishes around eyebrows — trailing letter-spacing killed on ::after so the
+     run is mirror-symmetric (gap each side = tracking + margin); no compensation needed */
   .eyebrow::before,.eyebrow::after{content:"\2666";color:var(--gold);opacity:.6;font-size:.7em;margin:0 .8em;vertical-align:.1em}
+  .eyebrow::after{letter-spacing:0}
   h1{
     font-family:'Cinzel',serif;
     font-weight:600;
